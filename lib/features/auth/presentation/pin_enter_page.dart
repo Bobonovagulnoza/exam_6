@@ -45,7 +45,7 @@ class _PinEnterPageState extends State<PinEnterPage> {
     if (savedPin == null) {
       _showDialog("Avval Login sahifasidan ro'yxatdan o'ting.");
     } else if (_enteredPin == savedPin) {
-      context.go('/profile'); // yoki pushReplacement('/profile') agar stackdan chiqarish kerak bo‘lsa
+      context.go('/profile');
     } else {
       _showDialog("Noto'g'ri parol. Qaytadan urinib ko'ring.");
     }
@@ -54,7 +54,19 @@ class _PinEnterPageState extends State<PinEnterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Kirish')),
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: const Text(
+          "Kirish",
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            context.go('/');
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
