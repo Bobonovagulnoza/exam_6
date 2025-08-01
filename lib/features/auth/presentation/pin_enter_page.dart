@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pinput/pinput.dart';
 
 import '../../../core/storage/storage_service.dart';
 
@@ -12,7 +12,44 @@ class PinEnterPage extends StatefulWidget {
 }
 
 class _PinEnterPageState extends State<PinEnterPage> {
-  final _controller = TextEditingController();
+  String _enteredPin = '';
+
+  final defaultPinTheme = PinTheme(
+    width: 60,
+    height: 60,
+    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.grey),
+      borderRadius: BorderRadius.circular(10),
+    ),
+  );
+
+  void _showDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Xatolik'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _checkPin() async {
+    final savedPin = await StorageService.getPin();
+    if (savedPin == null) {
+      _showDialog("Avval Login sahifasidan ro'yxatdan o'ting");
+    } else if (_enteredPin == savedPin) {
+      context.go('/profile');
+    } else {
+      _showDialog("Noto'g'ri parol. Qaytadan urinib ko'ring.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,26 +59,24 @@ class _PinEnterPageState extends State<PinEnterPage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            TextField(
-              controller: _controller,
-              maxLength: 4,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Kod kiriting"),
+            const Text(
+              "PIN kodni kiriting",
+              style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),
+            Pinput(
+              length: 4,
+              defaultPinTheme: defaultPinTheme,
+              onCompleted: (value) => _enteredPin = value,
+              onChanged: (value) => _enteredPin = value,
+            ),
+            const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () async {
-                final savedPin = await StorageService.getPin();
-                if (savedPin == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Avval Login qiling")),
-                  );
-                } else if (savedPin == _controller.text) {
-                  context.go('/profile');
+              onPressed: () {
+                if (_enteredPin.length == 4) {
+                  _checkPin();
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Noto'g'ri kod")),
-                  );
+                  _showDialog("Iltimos, 4 xonali PIN kod kiriting.");
                 }
               },
               child: const Text('Kirish'),

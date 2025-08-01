@@ -42,7 +42,14 @@ class _PinConfirmPageState extends State<PinConfirmPage> {
           "Kod qayta kiriting",
           style: TextStyle(color: Colors.white),
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
+
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -64,12 +71,26 @@ class _PinConfirmPageState extends State<PinConfirmPage> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: isMatch
-                  ? () async {
-                await StorageService.savePin(initialPin);
-                context.go('/biometric');
-              }
-                  : null,
+              onPressed: () async {
+                if (_confirmPin == initialPin) {
+                  await StorageService.savePin(initialPin);
+                  context.go('/biometric');
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text('Xatolik'),
+                      content: const Text('Parol to‘g‘ri kelmadi'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: isMatch ? Colors.green : Colors.grey,
                 foregroundColor: Colors.white,
@@ -78,6 +99,7 @@ class _PinConfirmPageState extends State<PinConfirmPage> {
               ),
               child: const Text('Saqlash'),
             ),
+
           ],
         ),
       ),

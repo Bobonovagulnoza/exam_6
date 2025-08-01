@@ -44,7 +44,7 @@ class SplashPage extends StatelessWidget {
                 textStyle: const TextStyle(fontSize: 18),
               ),
               onPressed: () => context.go('/login'),
-              child: const Text('Login'),
+              child: const Text('Parol yartish'),
             ),
           ],
         ),
