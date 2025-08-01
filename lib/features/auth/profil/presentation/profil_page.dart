@@ -69,81 +69,83 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              if (isSaved) ...[
-                _buildInfoRow("Ism", nameController.text),
-                _buildInfoRow("Familiya", surnameController.text),
-                _buildInfoRow("Tug‘ilgan sana", DateFormat.yMMMMd().format(birthDate!)),
-                _buildInfoRow("Viloyat", region!),
-                _buildInfoRow("Tuman", district!),
-                _buildInfoRow("Telefon", phoneController.text),
-                const SizedBox(height: 20),
-              ],
-              TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Ismingiz'),
-                validator: (value) => value == null || value.isEmpty ? 'Ismni kiriting' : null,
-              ),
-              TextFormField(
-                controller: surnameController,
-                decoration: const InputDecoration(labelText: 'Familiyangiz'),
-                validator: (value) => value == null || value.isEmpty ? 'Familiyani kiriting' : null,
-              ),
-              const SizedBox(height: 10),
-              ListTile(
-                title: Text(
-                  birthDate == null
-                      ? 'Tug‘ilgan sanani tanlang'
-                      : DateFormat.yMMMMd().format(birthDate!),
+          child: Center(
+            child: Column(
+              children: [
+                if (isSaved) ...[
+                  _buildInfoRow("Ism", nameController.text),
+                  _buildInfoRow("Familiya", surnameController.text),
+                  _buildInfoRow("Tug‘ilgan sana", DateFormat.yMMMMd().format(birthDate!)),
+                  _buildInfoRow("Viloyat", region!),
+                  _buildInfoRow("Tuman", district!),
+                  _buildInfoRow("Telefon", phoneController.text),
+                  const SizedBox(height: 20),
+                ],
+                TextFormField(
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: 'Ismingiz'),
+                  validator: (value) => value == null || value.isEmpty ? 'Ismni kiriting' : null,
                 ),
-                trailing: const Icon(Icons.calendar_today),
-                onTap: _pickBirthDate,
-              ),
-              DropdownButtonFormField<String>(
-                value: region,
-                decoration: const InputDecoration(labelText: "Viloyatni tanlang"),
-                items: regions.map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    region = value;
-                    district = null;
-                  });
-                },
-                validator: (value) => value == null ? 'Viloyatni tanlang' : null,
-              ),
-              if (region != null)
+                TextFormField(
+                  controller: surnameController,
+                  decoration: const InputDecoration(labelText: 'Familiyangiz'),
+                  validator: (value) => value == null || value.isEmpty ? 'Familiyani kiriting' : null,
+                ),
+                const SizedBox(height: 10),
+                ListTile(
+                  title: Text(
+                    birthDate == null
+                        ? 'Tug‘ilgan sanani tanlang'
+                        : DateFormat.yMMMMd().format(birthDate!),
+                  ),
+                  trailing: const Icon(Icons.calendar_today),
+                  onTap: _pickBirthDate,
+                ),
                 DropdownButtonFormField<String>(
-                  value: district,
-                  decoration: const InputDecoration(labelText: "Tumanni tanlang"),
-                  items: districtsByRegion[region]!
-                      .map((d) => DropdownMenuItem(value: d, child: Text(d)))
-                      .toList(),
+                  value: region,
+                  decoration: const InputDecoration(labelText: "Viloyatni tanlang"),
+                  items: regions.map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
                   onChanged: (value) {
                     setState(() {
-                      district = value;
+                      region = value;
+                      district = null;
                     });
                   },
-                  validator: (value) => value == null ? 'Tumanni tanlang' : null,
+                  validator: (value) => value == null ? 'Viloyatni tanlang' : null,
                 ),
-              TextFormField(
-                controller: phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(labelText: 'Telefon raqam'),
-                validator: (value) =>
-                value == null || value.length < 9 ? 'To‘g‘ri raqam kiriting' : null,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _saveProfile,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                if (region != null)
+                  DropdownButtonFormField<String>(
+                    value: district,
+                    decoration: const InputDecoration(labelText: "Tumanni tanlang"),
+                    items: districtsByRegion[region]!
+                        .map((d) => DropdownMenuItem(value: d, child: Text(d)))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        district = value;
+                      });
+                    },
+                    validator: (value) => value == null ? 'Tumanni tanlang' : null,
+                  ),
+                TextFormField(
+                  controller: phoneController,
+                  keyboardType: TextInputType.phone,
+                  decoration: const InputDecoration(labelText: 'Telefon raqam'),
+                  validator: (value) =>
+                  value == null || value.length < 9 ? 'To‘g‘ri raqam kiriting' : null,
                 ),
-                child: const Text("Saqlash"),
-              ),
-            ],
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _saveProfile,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  ),
+                  child: const Text("Saqlash"),
+                ),
+              ],
+            ),
           ),
         ),
       ),

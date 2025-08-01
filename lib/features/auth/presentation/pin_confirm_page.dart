@@ -53,54 +53,56 @@ class _PinConfirmPageState extends State<PinConfirmPage> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            const Text(
-              "Avvalgi PIN kodni qayta kiriting",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            Pinput(
-              length: 4,
-              defaultPinTheme: defaultPinTheme,
-              onChanged: (value) {
-                setState(() {
-                  _confirmPin = value;
-                });
-              },
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () async {
-                if (_confirmPin == initialPin) {
-                  await StorageService.savePin(initialPin);
-                  context.go('/biometric');
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: const Text('Xatolik'),
-                      content: const Text('Parol to‘g‘ri kelmadi'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: isMatch ? Colors.green : Colors.grey,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                textStyle: const TextStyle(fontSize: 18),
+        child: Center(
+          child: Column(
+            children: [
+              const Text(
+                "Avvalgi PIN kodni qayta kiriting",
+                style: TextStyle(fontSize: 16),
               ),
-              child: const Text('Saqlash'),
-            ),
+              const SizedBox(height: 20),
+              Pinput(
+                length: 4,
+                defaultPinTheme: defaultPinTheme,
+                onChanged: (value) {
+                  setState(() {
+                    _confirmPin = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_confirmPin == initialPin) {
+                    await StorageService.savePin(initialPin);
+                    context.go('/biometric');
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Xatolik'),
+                        content: const Text('Parol to‘g‘ri kelmadi'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isMatch ? Colors.green : Colors.grey,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+                child: const Text('Saqlash'),
+              ),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

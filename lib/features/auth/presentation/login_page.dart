@@ -40,42 +40,44 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            const Text("4 xonali parol kiriting"),
-            const SizedBox(height: 20),
-            Pinput(
-              length: 4,
-              defaultPinTheme: defaultPinTheme,
-              onCompleted: (value) {
-                setState(() {
-                  _pinCode = value;
-                });
-              },
-              onChanged: (value) {
-                setState(() {
-                  _pinCode = value;
-                });
-              },
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                _pinCode.length == 4 ? Colors.green : Colors.grey,
-                foregroundColor: Colors.white,
-                padding:
-                const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                textStyle: const TextStyle(fontSize: 18),
+        child: Center(
+          child: Column(
+            children: [
+              const Text("4 xonali parol kiriting"),
+              const SizedBox(height: 20),
+              Pinput(
+                length: 4,
+                defaultPinTheme: defaultPinTheme,
+                onCompleted: (value) {
+                  setState(() {
+                    _pinCode = value;
+                  });
+                },
+                onChanged: (value) {
+                  setState(() {
+                    _pinCode = value;
+                  });
+                },
               ),
-              onPressed: _pinCode.length == 4
-                  ? () {
-                context.push('/pin-confirm', extra: _pinCode);
-              }
-                  : null,
-              child: const Text('Davom etish'),
-            ),
-          ],
+              const SizedBox(height: 30),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                  _pinCode.length == 4 ? Colors.green : Colors.grey,
+                  foregroundColor: Colors.white,
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+                onPressed: _pinCode.length == 4
+                    ? () {
+                  context.push('/pin-confirm', extra: _pinCode);
+                }
+                    : null,
+                child: const Text('Davom etish'),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -69,36 +69,38 @@ class _PinEnterPageState extends State<PinEnterPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "PIN kodni kiriting",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            Pinput(
-              length: 4,
-              defaultPinTheme: defaultPinTheme,
-              onCompleted: (value) {
-                _enteredPin = value;
-              },
-              onChanged: (value) {
-                _enteredPin = value;
-              },
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                if (_enteredPin.length == 4) {
-                  _checkPin();
-                } else {
-                  _showDialog("Iltimos, 4 xonali PIN kod kiriting.");
-                }
-              },
-              child: const Text('Kirish'),
-            ),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "PIN kodni kiriting",
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 20),
+              Pinput(
+                length: 4,
+                defaultPinTheme: defaultPinTheme,
+                onCompleted: (value) {
+                  _enteredPin = value;
+                },
+                onChanged: (value) {
+                  _enteredPin = value;
+                },
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  if (_enteredPin.length == 4) {
+                    _checkPin();
+                  } else {
+                    _showDialog("Iltimos, 4 xonali PIN kod kiriting.");
+                  }
+                },
+                child: const Text('Kirish'),
+              ),
+            ],
+          ),
         ),
       ),
     );
