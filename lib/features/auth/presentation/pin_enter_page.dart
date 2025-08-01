@@ -43,9 +43,9 @@ class _PinEnterPageState extends State<PinEnterPage> {
   Future<void> _checkPin() async {
     final savedPin = await StorageService.getPin();
     if (savedPin == null) {
-      _showDialog("Avval Login sahifasidan ro'yxatdan o'ting");
+      _showDialog("Avval Login sahifasidan ro'yxatdan o'ting.");
     } else if (_enteredPin == savedPin) {
-      context.go('/profile');
+      context.go('/profile'); // yoki pushReplacement('/profile') agar stackdan chiqarish kerak bo‘lsa
     } else {
       _showDialog("Noto'g'ri parol. Qaytadan urinib ko'ring.");
     }
@@ -58,6 +58,7 @@ class _PinEnterPageState extends State<PinEnterPage> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               "PIN kodni kiriting",
@@ -67,8 +68,12 @@ class _PinEnterPageState extends State<PinEnterPage> {
             Pinput(
               length: 4,
               defaultPinTheme: defaultPinTheme,
-              onCompleted: (value) => _enteredPin = value,
-              onChanged: (value) => _enteredPin = value,
+              onCompleted: (value) {
+                _enteredPin = value;
+              },
+              onChanged: (value) {
+                _enteredPin = value;
+              },
             ),
             const SizedBox(height: 30),
             ElevatedButton(

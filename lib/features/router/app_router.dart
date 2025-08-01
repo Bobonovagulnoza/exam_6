@@ -4,7 +4,7 @@ import '../auth/presentation/biometric_page.dart';
 import '../auth/presentation/login_page.dart';
 import '../auth/presentation/pin_confirm_page.dart';
 import '../auth/presentation/pin_enter_page.dart';
-import '../auth/profil/presentation/profile_page.dart';
+import '../auth/profil/presentation/profil_page.dart';
 import '../splash/presentation/slash_page.dart';
 
 class AppRouter {
