@@ -1,9 +1,7 @@
-import 'package:exam_6/features/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 
 
@@ -16,43 +14,15 @@ class BiometricPage extends StatelessWidget {
       final bool didAuthenticate = await auth.authenticate(
           localizedReason: 'Please authenticate to show account balance',
           options: const AuthenticationOptions(useErrorDialogs: false));
-      // ···
     } on PlatformException catch (e) {
       print(e);
       if (e.code == auth_error.notEnrolled) {
-        // Add handling of no hardware here.
       } else if (e.code == auth_error.lockedOut ||
           e.code == auth_error.permanentlyLockedOut) {
-        // ...
       } else {
-        // ...
       }
     }
-    // try {
-    //
-    //   final isAvailable = await auth.canCheckBiometrics;
-    //   final isDeviceSupported = await auth.isDeviceSupported();
-    //
-    //   if (!isAvailable || !isDeviceSupported) {
-    //     _showSnackBar(context, "Biometrik autentifikatsiya qurilmada mavjud emas");
-    //     return;
-    //   }
-    //
-    //   final didAuth = await auth.authenticate(
-    //     localizedReason: 'Iltimos, biometrik ma\'lumot bilan tasdiqlang',
-    //     options: const AuthenticationOptions(biometricOnly: true),
-    //   );
-    //
-    //   if (didAuth) {
-    //     context.go('/profile');
-    //   } else {
-    //     _showSnackBar(context, "Biometrik autentifikatsiya muvaffaqiyatsiz tugadi");
-    //   }
-    // } catch (e,s) {
-    //   print(e);
-    //   print(s);
-    //   _showSnackBar(context, "Xatolik yuz berdi: $e");
-    // }
+
   }
 
   void _showSnackBar(BuildContext context, String message) {
