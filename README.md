@@ -2,6 +2,16 @@
 
 A new Flutter project.
 
+## 📽️ Demo Video
+
+Bu loyiha funksiyasini quyidagi video orqali ko‘rishingiz mumkin:
+
+[🔗 YouTube Video (Shorts)](https://youtube.com/shorts/8Zd44fJedkI?feature=share)
+
+Yoki rasmga bosib tomosha qiling:
+
+[![Video Preview](https://img.youtube.com/vi/8Zd44fJedkI/0.jpg)](https://youtube.com/shorts/8Zd44fJedkI?feature=share)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
